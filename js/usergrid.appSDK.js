@@ -1689,7 +1689,7 @@ Usergrid.ApiClient = (function () {
       //for timing, call end
       Query.setQueryEndTime();
       //for timing, log the total call time
-      console.log('Call timing: ' + Query.getQueryTotalTime());
+      // console.log('Call timing: ' + Query.getQueryTotalTime());
       //call completed
       clearTimeout(timeout);
       if (xhr.status != 200 && !xD)   {
