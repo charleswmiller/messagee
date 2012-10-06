@@ -512,7 +512,8 @@ $(document).ready(function () {
       return false;
     }
     appUser = Usergrid.ApiClient.getLoggedInUser();
-	var  activity_name = $("#activity_name").val();
+	var activity_name = $("#activity_name").val();
+	var activity_datetime = $("#activity_datetime").val();
     var content = $("#content").val();
     var actor =
     {"actor" : {
