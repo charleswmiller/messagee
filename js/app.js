@@ -512,6 +512,7 @@ $(document).ready(function () {
       return false;
     }
     appUser = Usergrid.ApiClient.getLoggedInUser();
+	var  activity_name = $("#activity_name").val();
     var content = $("#content").val();
     var actor =
     {"actor" : {
@@ -527,6 +528,7 @@ $(document).ready(function () {
       "email" : appUser.get('email')
     },
     "verb" : "post",
+	"activity_name" : activity_name,
     "content" : content,
     "lat" : 48.856614,
     "lon" : 2.352222};
