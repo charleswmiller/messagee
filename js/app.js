@@ -513,7 +513,9 @@ $(document).ready(function () {
     }
     appUser = Usergrid.ApiClient.getLoggedInUser();
 	var activity_name = $("#activity_name").val();
-	var activity_datetime = $("#activity_datetime").val();
+	var activity_date = $("#activity_date").val();
+	var activity_time = $("#activity_time").val();
+	var activity_location = $("#activity_location").val();
     var content = $("#content").val();
     var actor =
     {"actor" : {
@@ -530,6 +532,9 @@ $(document).ready(function () {
     },
     "verb" : "post",
 	"activity_name" : activity_name,
+	"activity_date" : activity_date,
+	"activity_time" : activity_time,
+	"activity_location" : activity_location,
     "content" : content,
     "lat" : 48.856614,
     "lon" : 2.352222};
