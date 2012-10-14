@@ -442,8 +442,8 @@ $(document).ready(function () {
         html += '(<a href="#page-now-following" id="'+created+'" name="'+username+'" data-role="button" data-rel="dialog" data-transition="fade">Follow</a>)';
       }
 	  html += '</div>';
-	  html += '<div id="accordion"> ';
-	  html += '<div class="pane" style="display:block">';
+	  html += '<div data-role="collapsible-set">';
+	  html += '<div data-role="collapsible">';
       html += '<h2 class="current"><a href="#"><br><span>' + activity_name + '</span> <br></a></h2>';
 	  html += '</div>';
 	  html += '<div class="pane">';
