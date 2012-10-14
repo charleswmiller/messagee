@@ -108,7 +108,7 @@
             <a href="#login" id="btn-logout" data-role="button">Logout</a>
             <a href="#page-update-account" id="btn-show-page-update-account" data-role="button" data-icon="gear" data-rel="dialog" data-transition="fade">Settings</a>
           </div>
-          <a href="#page-spontanier-account" id="btn-show-page-spontanier" data-role="button" data-rel="dialog" data-transition="fade">Spontanier Screen</a>	
+          <a href="#page-messages-list2" id="btn-show-page-spontanier" data-role="button" data-rel="dialog" data-transition="fade">Spontanier Screen</a>	
           <a href="#page-new-message" id="btn-show-create-message" data-role="button" data-rel="dialog" data-transition="fade">Create Event</a>
          
           <div style="width: 50%; float: left">
@@ -134,36 +134,33 @@
           </div>
         </div>
 
-        <div data-role="page" data-theme="b" id="page-spontanier-account">
-        <link href="homescreen.css" rel="stylesheet" type="text/css" />
-                <script type="text/javascript" src="homescreen.js">
-                </script>
-          <div data-role="header" data-theme="b">
+        <div data-role="page" data-theme="c" id="page-messages-list2">
+          <div data-role="header" data-theme="c">
             <h1>Be Spontanier...</h1>
           </div>
-                <div class="mobilelist1_wrapper">
-                    <ul data-role="listview" id="j_6" class=' mobilelist1 ' name="mobilelist1" dsid="mobilelist1"
-                    data-filter-placeholder='' data-theme='a' data-divider-theme='a' data-count-theme='a'
-                    style="">
-                        <li class=' mobilelistitem1 '>
-                            <a id="j_7" name="mobilelistitem1" dsid="mobilelistitem1" tabIndex="3" class=' mobilelistitem1 '>
-                            <h3>7:30pm   Snorkeling @ Aquarium</h3>
-                            </a>
-                        </li>
-                        <li class=' mobilelistitem2 '>
-                            <a id="j_8" name="mobilelistitem2" dsid="mobilelistitem2" tabIndex="3" class=' mobilelistitem2 '>
-                            <h3>8:00pm   Skeetshooting @ MFA</h3>
-                            </a>
-                        </li>
-                        <li class=' mobilelistitem3 '>
-                            <a id="j_9" name="mobilelistitem3" dsid="mobilelistitem3" tabIndex="3" class=' mobilelistitem3 '>
-                            <h3>9:30pm   Celebrate Spontanier's win</h3>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+          
+          <div style="width: 25%">
+              <a href="#" data-role="button" data-icon="home" id="btn-show-my-feed2">My Stream</a>
+          </div>
+          
+          <div id="messages-list2"  data-role="content">
+          No messages yet!
+          </div>
+          <div data-role="collapsible-set">
+          	<div data-role="collapsible">
+				<h3>Section 2</h3>
+				<p>I'm the collapsible set content for section 2.</p>
+			</div>
+            <div data-role="collapsible">
+				<h3>8:00pm   Skeetshooting @ MFA</h3>
+			</div>
+            <div data-role="collapsible">
+				<h3>9:30pm   Celebrate Spontanier's win</h3>
+			</div>
+          </div>
+          
             <div style="width: 50%; float: right">
-              <a href="#page-messages-list" id="btn-close-new-message" data-role="button">Cancel</a>
+              <a href="#page-messages-list" id="btn-close-new-message2" data-role="button">Cancel</a>
             </div>
           </div>
         </div>
