@@ -33,15 +33,22 @@ $(document).ready(function () {
   var appUser = new Usergrid.Entity('user');
   //a new Collection object that will be used to hold the full feed list
   var fullActivityFeed = new Usergrid.Collection("activities");
+  var fullActivityFeed2 = new Usergrid.Collection("activities");
   //make sure messages are pulled back in order
   fullActivityFeed.setQueryParams({"ql":"order by created desc"});
+  fullActivityFeed2.setQueryParams({"ql":"order by created desc"});
   //default to full feed view
   var fullFeedView = true;
+  var fullFeedView2 = true;
+  
   //a new Collection object that will be used to hold the user's feed
   var userFeed = new Usergrid.Collection();
+  var userFeed2 = new Usergrid.Collection();
+  
   //make sure messages are pulled back in order
   userFeed.setQueryParams({"ql":"order by created desc"});
-
+  userFeed2.setQueryParams({"ql":"order by created desc"});
+  
   //bind the various click events
   $('#btn-login').bind('click', function() {
     login();
@@ -76,6 +83,14 @@ $(document).ready(function () {
     }
   });
 
+  $('#btn-previous2').bind('click', function() {
+    if (fullFeedView2) {
+      fullActivityFeed2.getPreviousPage();
+    } else {
+      userFeed2.getPreviousPage();
+    }
+  });
+  
   $('#btn-next').bind('click', function() {
     if (fullFeedView) {
       fullActivityFeed.getNextPage();
@@ -83,15 +98,31 @@ $(document).ready(function () {
       userFeed.getNextPage();
     }
   });
+  
+   $('#btn-next2').bind('click', function() {
+    if (fullFeedView2) {
+      fullActivityFeed2.getNextPage();
+    } else {
+      userFeed2.getNextPage();
+    }
+  });
 
   $('#btn-show-my-feed').bind('click', function() {
     showMyFeed();
   });
 
+  $('#btn-show-my-feed2').bind('click', function() {
+    showMyFeed2();
+  });
+  
   $('#btn-show-full-feed').bind('click', function() {
     showFullFeed();
   });
-
+  
+  $('#btn-show-full-feed2').bind('click', function() {
+    showFullFeed2();
+  });
+  
   $('#btn-show-create-message').bind('click', function() {;
     $("#content").val('');
     $("#content").focus();
@@ -332,6 +363,44 @@ $(document).ready(function () {
     );
   }
 
+  function showMyFeed2() {
+    if (!Usergrid.ApiClient.isLoggedInAppUser()) {
+      window.location = "#page-login";
+      return;
+    }
+    //make sure we are on the messages page
+    window.location = "#page-messages-list2";
+	/**
+    fullFeedView2 = false;
+    $('#btn-show-full-feed2').removeClass('ui-btn-up-c');
+	*/
+	/**
+    $('#btn-show-my-feed2').addClass('ui-btn-up-c');
+	*/
+
+    //reset the full feed object so when we view it again, we will get the latest feed
+    fullActivityFeed2.clearQuery();
+
+    //get the users feed
+    userFeed2.get(
+      function(){
+        drawMessages2(userFeed2);
+        if (userFeed2.hasPreviousPage()) {
+          $("#previous-btn-container2").show();
+        } else {
+          $("#previous-btn-container2").hide();
+        }
+        if (userFeed2.hasNextPage()) {
+          $("#next-btn-container2").show();
+        } else {
+          $("#next-btn-container2").hide();
+        }
+      },
+      function(){ 
+        $("#messages-list2").html("There was an error getting the messages!");
+      }
+    );
+  }
   /**
    *  Function to get the full feed from the API
    *
@@ -383,6 +452,37 @@ $(document).ready(function () {
     );
   }
 
+  function showFullFeed2() {
+    if (!Usergrid.ApiClient.isLoggedInAppUser()) {
+      window.location = "#page-login";
+      return;
+    }
+    //make sure we are on the messages page
+    window.location = "#page-messages-list2";
+    
+    fullFeedView2 = true;
+    $('#btn-show-full-feed2').addClass('ui-btn-up-c');
+    $('#btn-show-my-feed2').removeClass('ui-btn-up-c');
+
+    fullActivityFeed2.get(
+      function(){
+        drawMessages2(fullActivityFeed);        
+        if (fullActivityFeed2.hasPreviousPage()) {
+          $("#previous-btn-container").show();
+        } else {
+          $("#previous-btn-container").hide();
+        }
+        if (fullActivityFeed.hasNextPage()) {
+          $("#next-btn-container").show();
+        } else {
+          $("#next-btn-container").hide();
+        }
+      },
+      function(){
+        $("#messages-list2").html("There was an error getting the messages!");
+      }
+    );
+  }
   /**
    *  Function to parse the messages of the feed
    *
@@ -434,7 +534,7 @@ $(document).ready(function () {
       var isotime = date.toISOString();
       formattedTime = prettyDate(isotime);
 
-	  
+	  /**
       html += '<div style="border-bottom: 1px solid #444; padding: 5px; min-height: 60px;"><img src="' + imageUrl + '" style="border none; height: 50px; width: 50px; float: left;padding-right: 10px"> ';
       html += '<span style="float: right">'+formattedTime+'</span>';
       html += '<strong>' + name + '</strong>';
@@ -442,8 +542,15 @@ $(document).ready(function () {
         html += '(<a href="#page-now-following" id="'+created+'" name="'+username+'" data-role="button" data-rel="dialog" data-transition="fade">Follow</a>)';
       }
 	  html += '</div>';
-	  html += '<div data-role="collapsible-set">';
-	  html += '<div data-role="collapsible">';
+	  */
+	  
+	
+	html += '<div data-role="collapsible">';
+	html += '<h3>Section 2</h3>';
+	html += '<p>Im the collapsible set content for section 2.</p>';
+	html += '</div> ';
+	
+	html += '  <div data-role="collapsible">';
       html += '<h2 class="current"><a href="#"><br><span>' + activity_name + '</span> <br></a></h2>';
 	  html += '</div>';
 	  html += '<div class="pane">';
@@ -451,12 +558,88 @@ $(document).ready(function () {
 	  html += '<br><span>' + activity_time + '</span> <br>';
 	  html += '<br><span>' + activity_location + '</span> <br>';
 	  html += '</div>';
-      html += '</div>';
+
 	  
       usersToBind[created] = username;
     }
     if (html == "") { html = "No messages yet!"; }
     $("#messages-list").html(html);
+    for(user in usersToBind) {
+      $('#'+user).bind('click', function(event) {
+        username = event.target.name;
+        followUser(username);
+      });
+    }
+     $(this).scrollTop(0);
+  }
+
+  function drawMessages2(feed) {
+    var html = "";
+    var usersToBind = [];
+    feed.resetEntityPointer();
+	
+    while(feed.hasNextEntity()) {
+      var message = feed.getNextEntity();
+      //var message = messages[i];
+      var created = message.get('created');
+      var activity_name = message.get('activity_name');
+	  var activity_date = message.get('activity_date');
+	  var activity_time = message.get('activity_time');
+	  var activity_location = message.get('activity_location');
+      var actor = message.get('actor');
+      var name = actor.displayName;
+      if (!name) { name = 'Anonymous'; }
+      var username = actor.displayName;
+
+      var email = '';
+      var imageUrl = '';
+      if ('email' in actor) {
+        email = actor.email;
+        imageUrl = 'http://www.gravatar.com/avatar/' + MD5(email.toLowerCase()) + '?s=' + 50;
+      }
+      if (!email) {
+        if ('image' in actor && 'url' in actor.image) {
+          imageUrl = actor.image.url;
+        }
+      }
+      if (!imageUrl) {
+        imageUrl = 'http://www.gravatar.com/avatar/' + MD5('rod@apigee.com') + '?s=' + 50;
+      }
+
+      var initialDate = new Date(created);
+      var offset = initialDate.getTimezoneOffset() * 60000;
+      var utcDate = created - offset;
+      var date = new Date(utcDate);
+      var isotime = date.toISOString();
+      formattedTime = prettyDate(isotime);
+
+	  /**
+      html += '<div style="border-bottom: 1px solid #444; padding: 5px; min-height: 60px;"><img src="' + imageUrl + '" style="border none; height: 50px; width: 50px; float: left;padding-right: 10px"> ';
+      html += '<span style="float: right">'+formattedTime+'</span>';
+      html += '<strong>' + name + '</strong>';
+      if (username && username != appUser.get('username')) {
+        html += '(<a href="#page-now-following" id="'+created+'" name="'+username+'" data-role="button" data-rel="dialog" data-transition="fade">Follow</a>)';
+      }
+	  html += '</div>';
+	  */
+	
+	  html += '<div data-role="collapsible">';
+      html += '<h3><a href="#"><br><span>' + activity_name + '</span> <br></a></h3>';
+	  /**
+	  html += '</div>';
+	  html += '<div class="pane">'; */
+	  /**
+	  html += '<br><span>' + activity_date + '</span> <br>';
+	  html += '<br><span>' + activity_time + '</span> <br>';
+	  html += '<br><span>' + activity_location + '</span> <br>';
+	  */
+	  html += '</div>';
+	  
+      usersToBind[created] = username;
+    }
+	
+    if (html == "") { html = "No messages yet!"; }
+    $("#messages-list2").html(html);
     for(user in usersToBind) {
       $('#'+user).bind('click', function(event) {
         username = event.target.name;
